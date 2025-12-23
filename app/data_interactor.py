@@ -1,17 +1,19 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from pathlib import Path
-
-app = FastAPI()
-
-path = Path()
-
-class Item(BaseModel):
-    first_name: str
-    last_name: str
-    phone_number: int
+import mysql.connector
 
 
-@app.get("/items")
-def get_items():
-    return
+conn = mysql.connector.connect(
+    host= "localhost",
+    port= 3306,
+    user= "root",
+    password= "0000",
+    database= "DB")
+
+cursor = conn.cursor()
+cursor.execute("SELECT * FROM contacts")
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+cursor.close()
+conn.close()
