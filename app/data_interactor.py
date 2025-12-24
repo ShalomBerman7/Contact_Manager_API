@@ -4,15 +4,10 @@ conn = mysql.connector.connect(
     host="localhost",
     port=3306,
     user="user",
-    # password= "0000",
-    database="DB")
+    password="mypassword",
+    database="contacts_db")
 
 cursor = conn.cursor()
-cursor.execute("SELECT * FROM contacts")
-rows = cursor.fetchall()
-
-for row in rows:  # בדיקה
-    print(row)
 
 
 class Contact:
@@ -41,7 +36,8 @@ class Contact:
         cursor.execute(f"INSERT INTO contacts (first_name, last_name, phone_number) \
                          VALUES('{first_name}', '{last_name}', '{phone_number}')")
         conn.commit()
-        return cursor.execute("SELECT MAX(id) FROM contacts")
+        new_id = cursor.execute("SELECT MAX(id) FROM contacts")
+        return 'new_id'
 
     @staticmethod
     def update_contact(id, first_name, last_name, phone_number):
@@ -56,12 +52,11 @@ class Contact:
     @staticmethod
     def delete_contact(id):
         try:
-            cursor.execute(f"DELETE * FROM contacts WHERE id = '{id}'")
+            cursor.execute(f"DELETE FROM contacts WHERE id = '{id}'")
             conn.commit()
             return True
         except:
             return False
 
-
-cursor.close()
-conn.close()
+# cursor.close()
+# conn.close()

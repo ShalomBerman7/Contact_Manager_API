@@ -2,18 +2,20 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: 0000
-      MYSQL_DATABASE: DB
+      MYSQL_ROOT_PASSWORD: mypassword
+      MYSQL_DATABASE: contacts_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: mypassword
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_data_new:/var/lib/mysql
       - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 10s
       timeout: 5s
       retries: 5
 
 volumes:
-  mysql_data:
+  mysql_data_new:
