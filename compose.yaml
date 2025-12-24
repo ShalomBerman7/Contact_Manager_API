@@ -17,5 +17,21 @@ services:
       timeout: 5s
       retries: 5
 
+
+  api:
+    build: ./app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: mypassword
+      DB_NAME: contacts_db
+
 volumes:
   mysql_data_new:
