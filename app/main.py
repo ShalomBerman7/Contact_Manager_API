@@ -9,9 +9,13 @@ path = Path()
 class Item(BaseModel):
     first_name: str
     last_name: str
-    phone_number: int
+    phone_number: str
 
 
 @app.get("/items")
 def get_items():
-    return
+    pass
+
+
+if __name__ == "__main__":
+    pass

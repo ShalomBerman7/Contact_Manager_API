@@ -1,20 +1,55 @@
-version: "3.9"
-
+---
 services:
-  mysql:
-    image: mysql:latest
-    container_name: mysql_db
-    restart: unless-stopped
+  db:
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: 0000
       MYSQL_DATABASE: DB
-    ports:
-      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-
-#  api:
-
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mysql_data:
+
+
+
+
+
+
+
+
+
+
+
+
+
+## version: "3.9"
+#
+#services:
+#  mysql:
+#    image: mysql:8.0
+#    container_name: mysql_db
+#    restart: unless-stopped
+#    environment:
+#      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#      MYSQL_DATABASE: DB
+#      MYSQL_ROOT_HOST: "%"
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      -  mysql_data:/var/lib/mysql
+#      -  ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+#
+##  api:
+#
+#
+#volumes:
+#  mysql_data:
