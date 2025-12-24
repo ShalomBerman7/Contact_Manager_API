@@ -1,10 +1,16 @@
-CREATE DATABASE IF NOT EXISTS db;
+CREATE DATABASE IF NOT EXISTS contacts_db;
+
+USE contacts_db;
 
 CREATE TABLE IF NOT EXISTS contacts (
-    id INT AUTO-INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    phone_number VARCHAR(20) NOT NULL UNIQUE);
+    phone_number VARCHAR(20) NOT NULL UNIQUE
+);
 
-INSERT INTO contacts (first_name, last_name, phone_number)
-VALUES('batya', 'berman', '0583294115');
+INSERT INTO contacts (first_name, last_name, phone_number) VALUES
+    ('John', 'Doe', '050-1234567'),
+    ('Jane', 'Smith', '052-9876543'),
+    ('Bob', 'Johnson', '054-5555555'),
+    ('Jack', 'Robinson', '050-6115555');

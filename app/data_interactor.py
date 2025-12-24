@@ -1,5 +1,3 @@
-from mmap import error
-
 import mysql.connector
 
 conn = mysql.connector.connect(
