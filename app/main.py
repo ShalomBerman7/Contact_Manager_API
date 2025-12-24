@@ -9,30 +9,34 @@ app = FastAPI()
 path = Path()
 
 
-class Item(BaseModel):
+class Items(BaseModel):
     first_name: str
     last_name: str
     phone_number: str
 
 
-@app.get("/items")
-def get_items():
-    items = Contact.get_all_contacts()
-    return items
+@app.get("/contacts")
+def get_contacts():
+    contacts = Contact.get_all_contacts()
+    return contacts
 
 
-@app.post("/items")
-def post_item(first_name, last_name, phone_number):
-    pass
+@app.post("/contacts")
+def create_contact(contacts: Items):
+    contact = Contact.create_contact(contacts.first_name, contacts.last_name, contacts.phone_number)
+    return contact
 
 
-@app.put("/items{id}")
-def put_item(id, first_name, last_name, phone_number):
-    pass
+@app.put("/contacts{id}")
+def update_contact(id, contacts: Items):
+    contact = Contact.update_contact(id, contacts.first_name, contacts.last_name, contacts.phone_number)
+    return contact
 
-@app.delete("/items{id}")
-def delete_item(id):
-    pass
+
+@app.delete("/contacts{id}")
+def delete_contact(id):
+    contact = Contact.delete_contact(id)
+    return contact
 
 
 if __name__ == "__main__":
