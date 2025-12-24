@@ -17,27 +17,39 @@ class Items(BaseModel):
 
 @app.get("/contacts")
 def get_contacts():
-    contacts = Contact.get_all_contacts()
-    return contacts
+    try:
+        contacts = Contact.get_all_contacts()
+        return contacts
+    except:
+        return "get error"
 
 
 @app.post("/contacts")
 def create_contact(contacts: Items):
-    contact = Contact.create_contact(contacts.first_name, contacts.last_name, contacts.phone_number)
-    return contact
+    try:
+        contact = Contact.create_contact(contacts.first_name, contacts.last_name, contacts.phone_number)
+        return contact
+    except:
+        return "post error"
 
 
 @app.put("/contacts{id}")
 def update_contact(id, contacts: Items):
-    contact = Contact.update_contact(id, contacts.first_name, contacts.last_name, contacts.phone_number)
-    return contact
+    try:
+        contact = Contact.update_contact(id, contacts.first_name, contacts.last_name, contacts.phone_number)
+        return contact
+    except:
+        return "put error"
 
 
 @app.delete("/contacts{id}")
 def delete_contact(id):
-    contact = Contact.delete_contact(id)
-    return contact
+    try:
+        contact = Contact.delete_contact(id)
+        return contact
+    except:
+        return "delete error"
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
