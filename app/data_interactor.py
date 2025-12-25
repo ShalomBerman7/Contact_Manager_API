@@ -1,7 +1,7 @@
 import mysql.connector
 
 conn = mysql.connector.connect(
-    host="localhost",
+    host="mysql_data_new",
     port=3306,
     user="user",
     password="mypassword",
@@ -28,16 +28,14 @@ class Contact:
     def get_all_contacts():
         cursor.execute("SELECT * FROM contacts")
         contacts = cursor.fetchall()
-        conn.commit()
         return contacts
 
     @staticmethod
     def create_contact(first_name, last_name, phone_number):
-        cursor.execute(f"INSERT INTO contacts (first_name, last_name, phone_number) \
-                         VALUES('{first_name}', '{last_name}', '{phone_number}')")
+        cursor.execute(f"INSERT INTO contacts (first_name, last_name, phone_number) VALUES('{first_name}', '{last_name}', '{phone_number}')")
         conn.commit()
         new_id = cursor.execute("SELECT MAX(id) FROM contacts")
-        return 'new_id'
+        return new_id
 
     @staticmethod
     def update_contact(id, first_name, last_name, phone_number):
