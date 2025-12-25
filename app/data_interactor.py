@@ -1,7 +1,7 @@
 import mysql.connector
 
 conn = mysql.connector.connect(
-    host="mysql_data_new",
+    host="db",
     port=3306,
     user="user",
     password="mypassword",
@@ -35,7 +35,7 @@ class Contact:
         cursor.execute(f"INSERT INTO contacts (first_name, last_name, phone_number) VALUES('{first_name}', '{last_name}', '{phone_number}')")
         conn.commit()
         new_id = cursor.execute("SELECT MAX(id) FROM contacts")
-        return new_id
+        return 'new_id'
 
     @staticmethod
     def update_contact(id, first_name, last_name, phone_number):
