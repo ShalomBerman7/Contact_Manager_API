@@ -31,11 +31,18 @@ class Contact:
         return contacts
 
     @staticmethod
+    def get_new_id():
+        cursor.execute("SELECT MAX(id) FROM contacts")
+        new_id = cursor.fetchall()
+        return new_id
+
+    @staticmethod
     def create_contact(first_name, last_name, phone_number):
-        cursor.execute(f"INSERT INTO contacts (first_name, last_name, phone_number) VALUES('{first_name}', '{last_name}', '{phone_number}')")
+        cursor.execute(f"INSERT INTO contacts (first_name, last_name, phone_number) \
+                        VALUES('{first_name}', '{last_name}', '{phone_number}')")
         conn.commit()
-        new_id = cursor.execute("SELECT MAX(id) FROM contacts")
-        return 'new_id'
+        new_id = Contact.get_new_id()
+        return new_id
 
     @staticmethod
     def update_contact(id, first_name, last_name, phone_number):
